@@ -6,7 +6,8 @@ import { PortisConnector } from '@web3-react/portis-connector'
 
 import { FortmaticConnector } from './Fortmatic'
 import { NetworkConnector } from './NetworkConnector'
-import BITSWAP_LOGO_URL from '../assets/bitswap.svg'
+import UNISWAP_LOGO_URL from '../assets/svg/logo.svg'
+
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL
 const FORMATIC_KEY = process.env.REACT_APP_FORTMATIC_KEY
 const PORTIS_ID = process.env.REACT_APP_PORTIS_ID
@@ -54,6 +55,6 @@ export const portis = new PortisConnector({
 // mainnet only
 export const walletlink = new WalletLinkConnector({
   url: NETWORK_URL,
-  appName: 'BitSwap',
-  appLogoUrl: BITSWAP_LOGO_URL
+  appName: 'Uniswap',
+  appLogoUrl: UNISWAP_LOGO_URL
 })
