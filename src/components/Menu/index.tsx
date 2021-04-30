@@ -114,7 +114,7 @@ export default function Menu() {
             <Bookmark size={14} />
             Learn
           </MenuItem>
-          <MenuItem id="link" href="https://discord.com/invite/z6QJW6dq">
+          <MenuItem id="link" href="https://discord.gg/VEuGM5jPfW">
             <MessageCircle size={14} />
             Discord
           </MenuItem>
