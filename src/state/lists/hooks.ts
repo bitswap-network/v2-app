@@ -117,6 +117,7 @@ function useCombinedTokenMapFromUrls(urls: string[] | undefined): TokenAddressMa
           if (!current) return allTokens
           try {
             const newTokens = Object.assign(listToTokenMap(current))
+            console.log(newTokens)
             return combineMaps(allTokens, newTokens)
           } catch (error) {
             console.error('Could not show token list due to error', error)
@@ -129,9 +130,11 @@ function useCombinedTokenMapFromUrls(urls: string[] | undefined): TokenAddressMa
 
 // filter out unsupported lists
 export function useActiveListUrls(): string[] | undefined {
-  return useSelector<AppState, AppState['lists']['activeListUrls']>(state => state.lists.activeListUrls)?.filter(
+  let temp = useSelector<AppState, AppState['lists']['activeListUrls']>(state => state.lists.activeListUrls)?.filter(
     url => !UNSUPPORTED_LIST_URLS.includes(url)
   )
+  // console.log(temp)
+  return temp
 }
 
 export function useInactiveListUrls(): string[] {
