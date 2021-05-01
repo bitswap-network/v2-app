@@ -1,0 +1,34 @@
+{
+    "name": "Uniswap Default List",
+    "timestamp": "2021-01-21T23:57:10.982Z",
+    "version": {
+      "major": 2,
+      "minor": 0,
+      "patch": 0
+    },
+    "tags": {},
+    "logoURI": "ipfs://QmNa8mQkrNKp1WEEeGjFezDmDeodkWRevGFN8JCV7b4Xir",
+    "keywords": [
+      "uniswap",
+      "default"
+    ],
+    "tokens": [
+      {
+        "chainId": 1,
+        "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+        "name": "wETH",
+        "symbol": "wETH",
+        "decimals": 18,
+        "logoURI": "https://icons-for-free.com/iconfiles/png/512/eth+ethcoin+etherium+icon-1320162857971241492.png"
+      },
+      {
+        "chainId": 1,
+        "address": "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
+        "name": "wBCLT",
+        "symbol": "wBCLT",
+        "decimals": 18,
+        "logoURI": "https://i.ibb.co/M2cCRPn/favicon.png"
+      }
+    ]
+  }
+  
