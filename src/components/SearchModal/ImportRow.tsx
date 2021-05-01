@@ -8,9 +8,7 @@ import ListLogo from 'components/ListLogo'
 import { useActiveWeb3React } from 'hooks'
 import { useCombinedInactiveList } from 'state/lists/hooks'
 import useTheme from 'hooks/useTheme'
-import { ButtonPrimary } from 'components/Button'
 import styled from 'styled-components'
-import { useIsUserAddedToken, useIsTokenActive } from 'hooks/Tokens'
 import { CheckCircle } from 'react-feather'
 
 const TokenSection = styled.div<{ dim?: boolean }>`
@@ -44,14 +42,10 @@ export default function ImportRow({
   token,
   style,
   dim,
-  showImportView,
-  setImportToken
 }: {
   token: Token
   style?: CSSProperties
   dim?: boolean
-  showImportView: () => void
-  setImportToken: (token: Token) => void
 }) {
   // gloabls
   const { chainId } = useActiveWeb3React()
@@ -62,8 +56,6 @@ export default function ImportRow({
   const list = chainId && inactiveTokenList?.[chainId]?.[token.address]?.list
 
   // check if already active on list or local storage tokens
-  const isAdded = useIsUserAddedToken(token)
-  const isActive = useIsTokenActive(token)
 
   return (
     <TokenSection style={style}>
@@ -84,25 +76,10 @@ export default function ImportRow({
           </RowFixed>
         )}
       </AutoColumn>
-      {!isActive && !isAdded ? (
-        <ButtonPrimary
-          width="fit-content"
-          padding="6px 12px"
-          fontWeight={500}
-          fontSize="14px"
-          onClick={() => {
-            setImportToken && setImportToken(token)
-            showImportView()
-          }}
-        >
-          Import
-        </ButtonPrimary>
-      ) : (
         <RowFixed style={{ minWidth: 'fit-content' }}>
           <CheckIcon />
           <TYPE.main color={theme.green1}>Active</TYPE.main>
         </RowFixed>
-      )}
     </TokenSection>
   )
 }

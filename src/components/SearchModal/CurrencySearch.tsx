@@ -4,11 +4,11 @@ import ReactGA from 'react-ga'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
 import { useActiveWeb3React } from '../../hooks'
-import { useAllTokens, useToken, useIsUserAddedToken, useFoundOnInactiveList } from '../../hooks/Tokens'
-import { CloseIcon, TYPE, ButtonText, IconWrapper } from '../../theme'
+import { useAllTokens, useFoundOnInactiveList } from '../../hooks/Tokens'
+import { CloseIcon, TYPE } from '../../theme'
 import { isAddress } from '../../utils'
 import Column from '../Column'
-import Row, { RowBetween, RowFixed } from '../Row'
+import { RowBetween } from '../Row'
 import CommonBases from './CommonBases'
 import CurrencyList from './CurrencyList'
 import { filterTokens, useSortedTokensByQuery } from './filtering'
@@ -19,8 +19,6 @@ import styled from 'styled-components'
 import useToggle from 'hooks/useToggle'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import useTheme from 'hooks/useTheme'
-import ImportRow from './ImportRow'
-import { Edit } from 'react-feather'
 import useDebounce from 'hooks/useDebounce'
 
 const ContentWrapper = styled(Column)`
@@ -29,15 +27,6 @@ const ContentWrapper = styled(Column)`
   position: relative;
 `
 
-const Footer = styled.div`
-  width: 100%;
-  border-radius: 20px;
-  padding: 20px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  background-color: ${({ theme }) => theme.bg1};
-  border-top: 1px solid ${({ theme }) => theme.bg2};
-`
 
 interface CurrencySearchProps {
   isOpen: boolean
@@ -46,9 +35,6 @@ interface CurrencySearchProps {
   onCurrencySelect: (currency: Currency) => void
   otherSelectedCurrency?: Currency | null
   showCommonBases?: boolean
-  showManageView: () => void
-  showImportView: () => void
-  setImportToken: (token: Token) => void
 }
 
 export function CurrencySearch({
@@ -58,9 +44,6 @@ export function CurrencySearch({
   showCommonBases,
   onDismiss,
   isOpen,
-  showManageView,
-  showImportView,
-  setImportToken
 }: CurrencySearchProps) {
   const { chainId } = useActiveWeb3React()
   const theme = useTheme()
@@ -77,8 +60,6 @@ export function CurrencySearch({
 
   // if they input an address, use it
   const isAddressSearch = isAddress(debouncedQuery)
-  const searchToken = useToken(debouncedQuery)
-  const searchTokenIsAdded = useIsUserAddedToken(searchToken)
 
   useEffect(() => {
     if (isAddressSearch) {
@@ -143,11 +124,7 @@ export function CurrencySearch({
         )}
       </PaddedColumn>
       <Separator />
-      {searchToken && !searchTokenIsAdded ? (
-        <Column style={{ padding: '20px 0', height: '100%' }}>
-          <ImportRow token={searchToken} showImportView={showImportView} setImportToken={setImportToken} />
-        </Column>
-      ) : filteredSortedTokens?.length > 0 || filteredInactiveTokens?.length > 0 ? (
+      {filteredSortedTokens?.length > 0 || filteredInactiveTokens?.length > 0 ? (
         <div style={{ flex: '1' }}>
           <AutoSizer disableWidth>
             {({ height }) => (
@@ -162,8 +139,6 @@ export function CurrencySearch({
                 otherCurrency={otherSelectedCurrency}
                 selectedCurrency={selectedCurrency}
                 fixedListRef={fixedList}
-                showImportView={showImportView}
-                setImportToken={setImportToken}
               />
             )}
           </AutoSizer>
@@ -175,18 +150,6 @@ export function CurrencySearch({
           </TYPE.main>
         </Column>
       )}
-      <Footer>
-        <Row justify="center">
-          <ButtonText onClick={showManageView} color={theme.blue1} className="list-token-manage-button">
-            <RowFixed>
-              <IconWrapper size="16px" marginRight="6px">
-                <Edit />
-              </IconWrapper>
-              <TYPE.main color={theme.blue1}>Manage</TYPE.main>
-            </RowFixed>
-          </ButtonText>
-        </Row>
-      </Footer>
     </ContentWrapper>
   )
 }

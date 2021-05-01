@@ -151,8 +151,6 @@ export default function CurrencyList({
   otherCurrency,
   fixedListRef,
   showETH,
-  showImportView,
-  setImportToken,
   breakIndex
 }: {
   height: number
@@ -162,8 +160,6 @@ export default function CurrencyList({
   otherCurrency?: Currency | null
   fixedListRef?: MutableRefObject<FixedSizeList | undefined>
   showETH: boolean
-  showImportView: () => void
-  setImportToken: (token: Token) => void
   breakIndex: number | undefined
 }) {
   const itemData: (Currency | undefined)[] = useMemo(() => {
@@ -215,8 +211,6 @@ export default function CurrencyList({
           <ImportRow
             style={style}
             token={token}
-            showImportView={showImportView}
-            setImportToken={setImportToken}
             dim={true}
           />
         )
@@ -238,8 +232,6 @@ export default function CurrencyList({
       onCurrencySelect,
       otherCurrency,
       selectedCurrency,
-      setImportToken,
-      showImportView,
       breakIndex,
       theme.text1
     ]
