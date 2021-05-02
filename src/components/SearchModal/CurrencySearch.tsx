@@ -121,9 +121,6 @@ export function CurrencySearch({
           </Text>
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
-        {showCommonBases && (
-          <CommonBases chainId={chainId} onSelect={handleCurrencySelect} selectedCurrency={selectedCurrency} />
-        )}
       </PaddedColumn>
       <Separator />
       {filteredSortedTokens?.length > 0 || filteredInactiveTokens?.length > 0 ? (
