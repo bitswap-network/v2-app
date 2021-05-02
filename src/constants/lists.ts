@@ -1,4 +1,4 @@
-const BITSWAP = 'https://eshchock1.github.io/bitswap-token-list/tokens.json'
+// const BITSWAP = 'https://eshchock1.github.io/bitswap-token-list/tokens.json'
 
 export const UNSUPPORTED_LIST_URLS: string[] = []
 
@@ -8,4 +8,4 @@ export const DEFAULT_LIST_OF_LISTS: string[] = [
 ]
 
 // default lists to be 'active' aka searched across
-export const DEFAULT_ACTIVE_LIST_URLS: string[] = [BITSWAP]
+export const DEFAULT_ACTIVE_LIST_URLS: string[] = []
