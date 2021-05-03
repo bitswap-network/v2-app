@@ -107,8 +107,6 @@ export function CurrencySearch({
   const inactiveTokens = useFoundOnInactiveList(debouncedQuery)
   const filteredInactiveTokens: Token[] = useSortedTokensByQuery(inactiveTokens, debouncedQuery)
 
-  console.log(filteredSortedTokens)
-  console.log(filteredInactiveTokens)
   return (
     <ContentWrapper>
       <PaddedColumn gap="16px">

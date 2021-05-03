@@ -14,6 +14,7 @@ export interface SwapState {
   readonly recipient: string | null
 }
 
+const WRAPPED_BITCLOUT_ID = "0xE41d2489571d322189246DaFA5ebDe1F4699F498"
 const initialState: SwapState = {
   independentField: Field.INPUT,
   typedValue: '',
@@ -55,7 +56,13 @@ export default createReducer<SwapState>(initialState, builder =>
           [otherField]: { currencyId: state[field].currencyId }
         }
       } else {
-        // the normal case
+        if(state[otherField].currencyId !== WRAPPED_BITCLOUT_ID && currencyId !== WRAPPED_BITCLOUT_ID) {
+          return {
+            ...state,
+            [field]: { currencyId: currencyId },
+            [otherField]: {currencyId: WRAPPED_BITCLOUT_ID}
+          }
+        }
         return {
           ...state,
           [field]: { currencyId: currencyId }
