@@ -22,7 +22,7 @@ export function RedirectToSwap(props: RouteComponentProps<{ outputCurrency: stri
     <Redirect
       to={{
         ...props.location,
-        pathname: '/swap',
+        pathname: '/wrap',
         search:
           search && search.length > 1
             ? `${search}&outputCurrency=${outputCurrency}`

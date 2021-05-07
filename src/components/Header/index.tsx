@@ -327,6 +327,9 @@ export default function Header() {
           </UniIcon>
         </Title>
         <HeaderLinks>
+        <StyledNavLink id={`wrap-nav-link`} to={'/wrap'}>
+            {t('Wrap')}
+          </StyledNavLink>
           <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
             {t('swap')}
           </StyledNavLink>
