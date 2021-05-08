@@ -29,6 +29,7 @@ const ContentWrapper = styled(Column)`
 
 interface CurrencySearchProps {
   isOpen: boolean
+  BCLTOnly: boolean
   onDismiss: () => void
   selectedCurrency?: Currency | null
   onCurrencySelect: (currency: Currency) => void
@@ -37,6 +38,7 @@ interface CurrencySearchProps {
 }
 
 export function CurrencySearch({
+  BCLTOnly,
   selectedCurrency,
   onCurrencySelect,
   otherSelectedCurrency,

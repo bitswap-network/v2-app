@@ -202,6 +202,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
           </RowBetween>
           <CurrencyInputPanel
             value={typedValue}
+            BCLTOnly={false}
             onUserInput={onUserInput}
             onMax={handleMax}
             showMaxButton={!atMaxAmount}

@@ -6,6 +6,7 @@ import { CurrencySearch } from './CurrencySearch'
 
 interface CurrencySearchModalProps {
   isOpen: boolean
+  BCLTOnly: boolean
   onDismiss: () => void
   selectedCurrency?: Currency | null
   onCurrencySelect: (currency: Currency) => void
@@ -22,6 +23,7 @@ export enum CurrencyModalView {
 
 export default function CurrencySearchModal({
   isOpen,
+  BCLTOnly,
   onDismiss,
   onCurrencySelect,
   selectedCurrency,
@@ -52,6 +54,7 @@ export default function CurrencySearchModal({
     <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={80} minHeight={minHeight}>
       <CurrencySearch
           isOpen={isOpen}
+          BCLTOnly={BCLTOnly}
           onDismiss={onDismiss}
           onCurrencySelect={handleCurrencySelect}
           selectedCurrency={selectedCurrency}

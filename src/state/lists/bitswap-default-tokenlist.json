@@ -15,19 +15,27 @@
     "tokens": [
       {
         "chainId": 1,
-        "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-        "name": "Wrapped Ether",
-        "symbol": "WETH",
-        "decimals": 18,
-        "logoURI": "https://icons-for-free.com/iconfiles/png/512/eth+ethcoin+etherium+icon-1320162857971241492.png"
-      },
-      {
-        "chainId": 1,
         "address": "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
         "name": "Wrapped Bitclout",
         "symbol": "WBCLT",
         "decimals": 18,
         "logoURI": "https://i.ibb.co/dG6Svq6/WBCLT-logo.png"
+      },
+      {
+        "chainId": 42,
+        "address": "0x3256de73ac5d35e537220e1222bea215d84af6d7",
+        "name": "Test Wrapped Bitclout",
+        "symbol": "TWBCLT",
+        "decimals": 18,
+        "logoURI": "https://i.ibb.co/dG6Svq6/WBCLT-logo.png"
+      },
+      {
+        "chainId": 1,
+        "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+        "name": "Wrapped Ether",
+        "symbol": "WETH",
+        "decimals": 18,
+        "logoURI": "https://icons-for-free.com/iconfiles/png/512/eth+ethcoin+etherium+icon-1320162857971241492.png"
       },
       {
         "name": "DaiStablecoin",

@@ -598,6 +598,7 @@ export default function RemoveLiquidity({
               <>
                 <CurrencyInputPanel
                   value={formattedAmounts[Field.LIQUIDITY]}
+                  BCLTOnly={false}
                   onUserInput={onLiquidityInput}
                   onMax={() => {
                     onUserInput(Field.LIQUIDITY_PERCENT, '100')
@@ -614,6 +615,7 @@ export default function RemoveLiquidity({
                 <CurrencyInputPanel
                   hideBalance={true}
                   value={formattedAmounts[Field.CURRENCY_A]}
+                  BCLTOnly={false}
                   onUserInput={onCurrencyAInput}
                   onMax={() => onUserInput(Field.LIQUIDITY_PERCENT, '100')}
                   showMaxButton={!atMaxAmount}
@@ -627,6 +629,7 @@ export default function RemoveLiquidity({
                 </ColumnCenter>
                 <CurrencyInputPanel
                   hideBalance={true}
+                  BCLTOnly={false}
                   value={formattedAmounts[Field.CURRENCY_B]}
                   onUserInput={onCurrencyBInput}
                   onMax={() => onUserInput(Field.LIQUIDITY_PERCENT, '100')}

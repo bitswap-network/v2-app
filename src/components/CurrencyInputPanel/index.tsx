@@ -117,6 +117,7 @@ const StyledBalanceMax = styled.button`
 
 interface CurrencyInputPanelProps {
   value: string
+  BCLTOnly: boolean
   onUserInput: (value: string) => void
   onMax?: () => void
   showMaxButton: boolean
@@ -135,6 +136,7 @@ interface CurrencyInputPanelProps {
 
 export default function CurrencyInputPanel({
   value,
+  BCLTOnly,
   onUserInput,
   onMax,
   showMaxButton,
@@ -236,6 +238,7 @@ export default function CurrencyInputPanel({
       </Container>
       {!disableCurrencySelect && onCurrencySelect && (
         <CurrencySearchModal
+          BCLTOnly={BCLTOnly}
           isOpen={modalOpen}
           onDismiss={handleDismissSearch}
           onCurrencySelect={onCurrencySelect}
