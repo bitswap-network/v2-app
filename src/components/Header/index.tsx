@@ -30,6 +30,9 @@ import UniBalanceContent from './UniBalanceContent'
 import { CardNoise, CardSection, DataCard} from '../earn/styled'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
+import {loggedInState, userState} from "../../state/user";
+import {loginUser, logoutUser} from "../../state/user/services";
+import {useRecoilValue, useSetRecoilState} from 'recoil';
 
 
 const ContentWrapper = styled(AutoColumn)`
@@ -322,21 +325,67 @@ export default function Header() {
   const [showUniBalanceModal, setShowUniBalanceModal] = useState(false)
   const showClaimPopup = useShowClaimPopup()
 
+  const isLoggedIn = useRecoilValue(loggedInState);
+  const setUser = useSetRecoilState(userState);
+  const user = useRecoilValue(userState);
+
   const [loginModal, setLoginModal] = useState(false)
+  const [logoutModal, setLogoutModal] = useState(false)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [errorText, setErrorText] = useState("")
+
   const openLoginModal = () => {
     setLoginModal(!loginModal)
   }
 
+  const openLogoutModal = () => {
+    setLogoutModal(!logoutModal)
+  }
+
   const updateUsername = () => {
-    let username = (document.getElementById('username') as HTMLInputElement).value
+    let username = (document.getElementById('username') as HTMLInputElement).value.trim()
     setUsername(username)
   }
 
   const updatePassword = () => {
-    let password = (document.getElementById('password') as HTMLInputElement).value
+    let password = (document.getElementById('password') as HTMLInputElement).value.trim()
     setPassword(password)
+  }
+
+  const handleLogin = () => {
+    loginUser(username.trim(), password.trim())
+      .then((response:any) => {
+        if (response.status === 200) {
+          localStorage.setItem("user", JSON.stringify(response.data));
+          setUser(response.data);
+          setLoginModal(false)
+          window.location.assign("/");
+        } else {
+          console.log(response.data);
+          setErrorText(response.data);
+        }
+      })
+      .catch((error: any) => {
+        if (error.response) {
+          if (error.response.data.error.text) {
+            setErrorText(error.response.data.error.text);
+          }
+          else {
+            setErrorText(error.response.data.error);
+          }
+        } else {
+          console.log(error.message);
+          setErrorText(error.message);
+        }
+      });
+  };
+
+  const handleLogout = () => {
+      logoutUser()
+      setUser(null);
+      setLogoutModal(false)
+      window.location.assign("/");
   }
 
   return (
@@ -361,23 +410,58 @@ export default function Header() {
             <input id="password" onChange={() => updatePassword()}  type="password" placeholder="Password" style={{outline: 'none', marginTop:10, height:50, borderRadius:10, border:'1px solid #40444f', background:'none', color:'#8d93a6', fontWeight:500, fontSize:16, paddingLeft:10, paddingRight:10,}}/>
             {username == "" || password == ""?
             <button style={{marginTop:15, background:'#40444f', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#6b7184', fontSize:20, fontWeight:500}}>Login</span></button>:
-            <button style={{marginTop:15, background:'#2172e5', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Login</span></button>
+            <button onClick={()=>handleLogin()} style={{marginTop:15, background:'#2172e5', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Login</span></button>
             }
+              <span style={{color:'tomato', fontSize:16, fontWeight:400, paddingLeft:15, paddingRight:15, textAlign:'center'}}>{errorText}</span>
               <span style={{color:'#6b7184', fontSize:16, fontWeight:400, paddingLeft:15, paddingRight:15, textAlign:'center'}}>Don't have a bitswap account?<br/><a href="http://app.bitswap.network/register" style={{color:'#2164c3'}}>Create Account</a></span>
           </AutoColumn>
       </CardSection>
       </ModalUpper>
     </ContentWrapper>
       </Modal>
+
+      <Modal isOpen={logoutModal} onDismiss={() => setLogoutModal(false)}>
+      <ContentWrapper gap="lg">
+      <ModalUpper>
+        <div style={{background:'#212429', width:'100%'}}>
+        <CardSection gap="md">
+          <RowBetween>
+            {user?<TYPE.white color="white">Logout of {user.username}?</TYPE.white>:<TYPE.white color="white">Logout of Bitswap</TYPE.white>}
+            <StyledClose stroke="white" onClick={() => setLogoutModal(false)} />
+          </RowBetween>
+        </CardSection>
+        </div>
+        <CardSection gap="sm">
+          <AutoColumn gap="md">
+            <button onClick={()=>handleLogout()} style={{height:50, marginLeft:30, marginRight:30, backgroundColor:'#481c1c', border:'1px solid #db5037', borderRadius:20, fontSize:20, fontWeight:500, color:'#db5037',}}>
+                Logout
+            </button>
+            </AutoColumn>
+      </CardSection>
+      </ModalUpper>
+    </ContentWrapper>
+      </Modal>
+
+
       <HeaderRow>
         <Title href=".">
           <UniIcon>
             <img width={'24px'} src={darkMode ? LogoDark : Logo} alt="logo" />
           </UniIcon>
         </Title>
-        <button onClick={()=>openLoginModal()} style={{paddingLeft:15, paddingRight:15, height:35, background:'#1c2f48', border:'1px solid #213857', borderRadius:10, display:'flex', alignItems:'center'}}>
-          <p style={{ fontSize:16, fontWeight:500, color:'#6da8e2', whiteSpace:'nowrap'}}>Login to Bitswap</p>
+        {!isLoggedIn?<button onClick={()=>openLoginModal()} style={{paddingLeft:15, paddingRight:15, height:40, background:'#1c2f48', border:'1px solid #213857', borderRadius:12, display:'flex', alignItems:'center'}}>
+          <p style={{ fontSize:16, fontWeight:500, color:'#5787cd', whiteSpace:'nowrap'}}>Login to Bitswap</p>
+        </button>:
+        <div style={{display:'flex', flexDirection:'row', background:'#212429', borderRadius:12}}>
+        <button onClick={()=>openLogoutModal()} style={{paddingLeft:15, paddingRight:15, height:40, background:'#2c2f36', border:'4px solid #212429', borderRadius:10, display:'flex', alignItems:'center'}}>
+          <p style={{ fontSize:16, fontWeight:500, color:'white', whiteSpace:'nowrap'}}>{user.username.toUpperCase()}</p>
         </button>
+        <div style={{height:40, paddingLeft:10, paddingRight:15, borderRadius:10, display:'flex', alignItems:'center'}}>
+          <p style={{ fontSize:16, fontWeight:500, color:'white', whiteSpace:'nowrap'}}>{user.balance.bitclout} BCLT</p>
+        </div>
+        </div>
+        
+        }
       </HeaderRow>
       <HeaderLinks>
       <StyledNavLink id={`wrap-nav-link`} to={'/wrap'}>
