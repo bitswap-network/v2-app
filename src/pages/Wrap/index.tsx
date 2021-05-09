@@ -22,6 +22,7 @@ export default function Swap({ history }: RouteComponentProps) {
   const [direction, setDirection] = useState(true)
   const [from, setFrom] = useState("BCLT")
   const [to, setTo] = useState("WBCLT")
+  
   function swapInputOutput() {
     console.log(direction)
     if (from == "BCLT") {
