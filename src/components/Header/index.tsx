@@ -9,11 +9,11 @@ import styled from 'styled-components'
 
 import Logo from '../../assets/bitswap_small.png'
 import LogoDark from '../../assets/bitswap_small.png'
+import { X } from 'react-feather'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useDarkModeManager } from '../../state/user/hooks'
 import { useETHBalances } from '../../state/wallet/hooks'
-import { CardNoise } from '../earn/styled'
 import { TYPE, ExternalLink } from '../../theme'
 
 import { YellowCard } from '../Card'
@@ -21,13 +21,35 @@ import Menu from '../Menu'
 
 import Row, { RowFixed } from '../Row'
 import Web3Status from '../Web3Status'
-import ClaimModal from '../claim/ClaimModal'
 import { useToggleSelfClaimModal, useShowClaimPopup } from '../../state/application/hooks'
 import { useUserHasAvailableClaim } from '../../state/claim/hooks'
 import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
 import { Dots } from '../swap/styleds'
 import Modal from '../Modal'
 import UniBalanceContent from './UniBalanceContent'
+import { CardNoise, CardSection, DataCard} from '../earn/styled'
+import { AutoColumn } from '../Column'
+import { RowBetween } from '../Row'
+
+
+const ContentWrapper = styled(AutoColumn)`
+  width: 100%;
+`
+
+const ModalUpper = styled(DataCard)`
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background: #2c2f36;
+`
+
+const StyledClose = styled(X)`
+  position: absolute;
+  right: 16px;
+  top: 16px;
+
+  :hover {
+    cursor: pointer;
+  }
+`
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -300,11 +322,52 @@ export default function Header() {
   const [showUniBalanceModal, setShowUniBalanceModal] = useState(false)
   const showClaimPopup = useShowClaimPopup()
 
+  const [loginModal, setLoginModal] = useState(false)
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const openLoginModal = () => {
+    setLoginModal(!loginModal)
+  }
+
+  const updateUsername = () => {
+    let username = (document.getElementById('username') as HTMLInputElement).value
+    setUsername(username)
+  }
+
+  const updatePassword = () => {
+    let password = (document.getElementById('password') as HTMLInputElement).value
+    setPassword(password)
+  }
+
   return (
     <HeaderFrame>
-      <ClaimModal />
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
+      </Modal>
+      <Modal isOpen={loginModal} onDismiss={() => setLoginModal(false)}>
+      <ContentWrapper gap="lg">
+      <ModalUpper>
+        <div style={{background:'#212429', width:'100%'}}>
+        <CardSection gap="md">
+          <RowBetween>
+            <TYPE.white color="white">Login to Bitswap</TYPE.white>
+            <StyledClose stroke="white" onClick={() => setLoginModal(false)} />
+          </RowBetween>
+        </CardSection>
+        </div>
+        <CardSection gap="sm">
+          <AutoColumn gap="md">
+            <input id="username" onChange={() => updateUsername()}  type="text" placeholder="Username" style={{outline: 'none', marginTop:10, height:50, borderRadius:10, border:'1px solid #40444f', background:'none', color:'#8d93a6', fontWeight:500, fontSize:16, paddingLeft:10, paddingRight:10,}}/>
+            <input id="password" onChange={() => updatePassword()}  type="password" placeholder="Password" style={{outline: 'none', marginTop:10, height:50, borderRadius:10, border:'1px solid #40444f', background:'none', color:'#8d93a6', fontWeight:500, fontSize:16, paddingLeft:10, paddingRight:10,}}/>
+            {username == "" || password == ""?
+            <button style={{marginTop:15, background:'#40444f', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#6b7184', fontSize:20, fontWeight:500}}>Login</span></button>:
+            <button style={{marginTop:15, background:'#2172e5', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Login</span></button>
+            }
+              <span style={{color:'#6b7184', fontSize:16, fontWeight:400, paddingLeft:15, paddingRight:15, textAlign:'center'}}>Don't have a bitswap account?<br/><a href="http://app.bitswap.network/register" style={{color:'#2164c3'}}>Create Account</a></span>
+          </AutoColumn>
+      </CardSection>
+      </ModalUpper>
+    </ContentWrapper>
       </Modal>
       <HeaderRow>
         <Title href=".">
@@ -312,6 +375,9 @@ export default function Header() {
             <img width={'24px'} src={darkMode ? LogoDark : Logo} alt="logo" />
           </UniIcon>
         </Title>
+        <button onClick={()=>openLoginModal()} style={{paddingLeft:15, paddingRight:15, height:35, background:'#1c2f48', border:'1px solid #213857', borderRadius:10, display:'flex', alignItems:'center'}}>
+          <p style={{ fontSize:16, fontWeight:500, color:'#6da8e2', whiteSpace:'nowrap'}}>Login to Bitswap</p>
+        </button>
       </HeaderRow>
       <HeaderLinks>
       <StyledNavLink id={`wrap-nav-link`} to={'/wrap'}>
