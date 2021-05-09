@@ -23,7 +23,7 @@
       },
       {
         "chainId": 42,
-        "address": "0x3256de73ac5d35e537220e1222bea215d84af6d7",
+        "address": "0x74d8b875Fb498D7C16Ba964EA0ec65c9c8b35712",
         "name": "Test Wrapped Bitclout",
         "symbol": "TWBCLT",
         "decimals": 18,
