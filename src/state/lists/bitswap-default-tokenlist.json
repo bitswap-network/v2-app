@@ -24,8 +24,8 @@
       {
         "chainId": 42,
         "address": "0x74d8b875fb498d7c16ba964ea0ec65c9c8b35712",
-        "name": "Test Wrapped Bitclout",
-        "symbol": "TWBCLT",
+        "name": "Wrapped Bitclout",
+        "symbol": "WBCLT",
         "decimals": 18,
         "logoURI": "https://i.ibb.co/dG6Svq6/WBCLT-logo.png"
       },
