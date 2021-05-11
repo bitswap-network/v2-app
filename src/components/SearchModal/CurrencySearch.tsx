@@ -1,18 +1,17 @@
-import { Currency, ETHER, Token } from '@uniswap/sdk'
-import React, { KeyboardEvent, useCallback, useEffect, RefObject, useMemo, useRef, useState } from 'react'
+import { Currency, Token } from '@uniswap/sdk'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import ReactGA from 'react-ga'
-import { useTranslation } from 'react-i18next'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
 import { useAllTokens, useFoundOnInactiveList } from '../../hooks/Tokens'
 import { CloseIcon, TYPE } from '../../theme'
 import { isAddress } from '../../utils'
 import Column from '../Column'
-import Row, { RowBetween } from '../Row'
+import { RowBetween } from '../Row'
 import CurrencyList from './CurrencyList'
 import { filterTokens, useSortedTokensByQuery } from './filtering'
 import { useTokenComparator } from './sorting'
-import { PaddedColumn, SearchInput, Separator } from './styleds'
+import { PaddedColumn, Separator } from './styleds'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import styled from 'styled-components'
 import useToggle from 'hooks/useToggle'
@@ -47,7 +46,6 @@ export function CurrencySearch({
   isOpen,
 }: CurrencySearchProps) {
   const theme = useTheme()
-  const { t } = useTranslation()
 
   // refs for fixed size lists
   const fixedList = useRef<FixedSizeList>()
@@ -102,32 +100,6 @@ export function CurrencySearch({
     if (isOpen) setSearchQuery('')
   }, [isOpen])
 
-  const inputRef = useRef<HTMLInputElement>()
-  const handleInput = useCallback((event) => {
-    const input = event.target.value
-    const checksummedInput = isAddress(input)
-    setSearchQuery(checksummedInput || input)
-    fixedList.current?.scrollTo(0)
-  }, [])
-
-  const handleEnter = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') {
-        const s = debouncedQuery.toLowerCase().trim()
-        if (s === 'eth') {
-          handleCurrencySelect(ETHER)
-        } else if (filteredSortedTokens.length > 0) {
-          if (
-            filteredSortedTokens[0].symbol?.toLowerCase() === debouncedQuery.trim().toLowerCase() ||
-            filteredSortedTokens.length === 1
-          ) {
-            handleCurrencySelect(filteredSortedTokens[0])
-          }
-        }
-      }
-    },
-    [filteredSortedTokens, handleCurrencySelect, debouncedQuery]
-  )
   // menu ui
   const [open, toggle] = useToggle(false)
   const node = useRef<HTMLDivElement>()
@@ -146,18 +118,6 @@ export function CurrencySearch({
           </Text>
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
-        <Row>
-          <SearchInput
-            type="text"
-            id="token-search-input"
-            placeholder={t('tokenSearchPlaceholder')}
-            autoComplete="off"
-            value={searchQuery}
-            ref={inputRef as RefObject<HTMLInputElement>}
-            onChange={handleInput}
-            onKeyDown={handleEnter}
-          />
-        </Row>
       </PaddedColumn>
       <Separator />
       {filteredSortedTokens?.length > 0 || filteredInactiveTokens?.length > 0 ? (

@@ -121,9 +121,10 @@ export default function Swap({ history }: RouteComponentProps) {
           <BottomGrouping>
             {
             inputValue == ""?
-            <button style={{marginTop:15, background:theme.bg3, width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:theme.text3, fontSize:20, fontWeight:500}}>Enter an amount</span></button>:
+            // <button style={{marginTop:12, background:theme.primary5, width:'100%', height:56, borderRadius:20, border:'none'}}><span style={{color:theme.primaryText1, fontSize:16, fontWeight:500}}>Connect Wallet</span></button>:
+            <button style={{marginTop:12, background:theme.bg3, width:'100%', height:62, borderRadius:20, border:'none'}}><span style={{color:theme.text3, fontSize:20, fontWeight:500}}>Enter an amount</span></button>:
             direction?
-            <button style={{marginTop:15, background:theme.primary1, width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Wrap Bitclout</span></button>:<button style={{marginTop:15, background:'#2172e5', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Unwrap Bitclout</span></button>
+            <button style={{marginTop:12, background:theme.primary1, width:'100%', height:62, borderRadius:20, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Wrap Bitclout</span></button>:<button style={{marginTop:15, background:'#2172e5', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Unwrap Bitclout</span></button>
           }
           </BottomGrouping>
         </Wrapper>
