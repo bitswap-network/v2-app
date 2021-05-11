@@ -21,18 +21,15 @@ import Menu from '../Menu'
 
 import Row, { RowFixed } from '../Row'
 import Web3Status from '../Web3Status'
-import { useToggleSelfClaimModal, useShowClaimPopup } from '../../state/application/hooks'
-import { useUserHasAvailableClaim } from '../../state/claim/hooks'
-import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
-import { Dots } from '../swap/styleds'
 import Modal from '../Modal'
 import UniBalanceContent from './UniBalanceContent'
-import { CardNoise, CardSection, DataCard} from '../earn/styled'
+import { CardSection, DataCard} from '../earn/styled'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import {loggedInState, userState} from "../../state/user";
 import {loginUser, logoutUser} from "../../state/user/services";
 import {useRecoilValue, useSetRecoilState} from 'recoil';
+import {colors} from '../../theme'
 
 
 const ContentWrapper = styled(AutoColumn)`
@@ -148,27 +145,6 @@ const AccountElement = styled.div<{ active: boolean }>`
   cursor: pointer;
   :focus {
     border: 1px solid blue;
-  }
-`
-
-const UNIAmount = styled(AccountElement)`
-  color: white;
-  padding: 4px 8px;
-  height: 36px;
-  font-weight: 500;
-  background-color: ${({ theme }) => theme.bg3};
-  background: radial-gradient(174.47% 188.91% at 1.84% 0%, #ff007a 0%, #2172e5 100%), #edeef2;
-`
-
-const UNIWrapper = styled.span`
-  width: fit-content;
-  position: relative;
-  cursor: pointer;
-  :hover {
-    opacity: 0.8;
-  }
-  :active {
-    opacity: 0.9;
   }
 `
 
@@ -315,15 +291,9 @@ export default function Header() {
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
   // const [isDark] = useDarkModeManager()
   const [darkMode, toggleDarkMode] = useDarkModeManager()
-
-  const toggleClaimModal = useToggleSelfClaimModal()
-
-  const availableClaim: boolean = useUserHasAvailableClaim(account)
-
-  const { claimTxn } = useUserHasSubmittedClaim(account ?? undefined)
+  const themeColors:any = colors(darkMode);
 
   const [showUniBalanceModal, setShowUniBalanceModal] = useState(false)
-  const showClaimPopup = useShowClaimPopup()
 
   const isLoggedIn = useRecoilValue(loggedInState);
   const setUser = useSetRecoilState(userState);
@@ -396,26 +366,28 @@ export default function Header() {
       <Modal isOpen={loginModal} onDismiss={() => setLoginModal(false)}>
       <ContentWrapper gap="lg">
       <ModalUpper>
-        <div style={{background:'#212429', width:'100%'}}>
+        <div style={{background:themeColors.bg1, width:'100%'}}>
         <CardSection gap="md">
           <RowBetween>
-            <TYPE.white color="white">Login to Bitswap</TYPE.white>
-            <StyledClose stroke="white" onClick={() => setLoginModal(false)} />
+            <TYPE.white color={themeColors.text1}>Login to Bitswap</TYPE.white>
+            <StyledClose stroke={themeColors.text1} onClick={() => setLoginModal(false)} />
           </RowBetween>
         </CardSection>
         </div>
+        <div style={{background:themeColors.bg2, width:'100%'}}>
         <CardSection gap="sm">
           <AutoColumn gap="md">
-            <input id="username" onChange={() => updateUsername()}  type="text" placeholder="Username" style={{outline: 'none', marginTop:10, height:50, borderRadius:10, border:'1px solid #40444f', background:'none', color:'#8d93a6', fontWeight:500, fontSize:16, paddingLeft:10, paddingRight:10,}}/>
-            <input id="password" onChange={() => updatePassword()}  type="password" placeholder="Password" style={{outline: 'none', marginTop:10, height:50, borderRadius:10, border:'1px solid #40444f', background:'none', color:'#8d93a6', fontWeight:500, fontSize:16, paddingLeft:10, paddingRight:10,}}/>
+            <input id="username" onChange={() => updateUsername()}  type="text" placeholder="Username" style={{outline: 'none', marginTop:10, height:50, borderRadius:10, border:'1px solid ' + themeColors.bg3, background:'none', color:themeColors.text3, fontWeight:500, fontSize:16, paddingLeft:10, paddingRight:10,}}/>
+            <input id="password" onChange={() => updatePassword()}  type="password" placeholder="Password" style={{outline: 'none', marginTop:10, height:50, borderRadius:10, border:'1px solid ' + themeColors.bg3, background:'none', color:themeColors.text3, fontWeight:500, fontSize:16, paddingLeft:10, paddingRight:10,}}/>
             {username == "" || password == ""?
-            <button style={{marginTop:15, background:'#40444f', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#6b7184', fontSize:20, fontWeight:500}}>Login</span></button>:
-            <button onClick={()=>handleLogin()} style={{marginTop:15, background:'#2172e5', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Login</span></button>
+            <button style={{marginTop:15, background:themeColors.bg3, width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:themeColors.text2, fontSize:20, fontWeight:500}}>Login</span></button>:
+            <button onClick={()=>handleLogin()} style={{marginTop:15, background:themeColors.primary1, width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:"#fff", fontSize:20, fontWeight:500}}>Login</span></button>
             }
               <span style={{color:'tomato', fontSize:16, fontWeight:400, paddingLeft:15, paddingRight:15, textAlign:'center'}}>{errorText}</span>
-              <span style={{color:'#6b7184', fontSize:16, fontWeight:400, paddingLeft:15, paddingRight:15, textAlign:'center'}}>Don't have a bitswap account?<br/><a href="http://app.bitswap.network/register" style={{color:'#2164c3'}}>Create Account</a></span>
+              <span style={{color:themeColors.text3, fontSize:16, fontWeight:400, paddingLeft:15, paddingRight:15, textAlign:'center'}}>Don't have a bitswap account?<br/><a href="http://app.bitswap.network/register" style={{color:themeColors.primarytext1}}>Create Account</a></span>
           </AutoColumn>
       </CardSection>
+      </div>
       </ModalUpper>
     </ContentWrapper>
       </Modal>
@@ -423,21 +395,23 @@ export default function Header() {
       <Modal isOpen={logoutModal} onDismiss={() => setLogoutModal(false)}>
       <ContentWrapper gap="lg">
       <ModalUpper>
-        <div style={{background:'#212429', width:'100%'}}>
+        <div style={{background:themeColors.bg1, width:'100%'}}>
         <CardSection gap="md">
           <RowBetween>
-            {user?<TYPE.white color="white">Logout of {user.username}?</TYPE.white>:<TYPE.white color="white">Logout of Bitswap</TYPE.white>}
-            <StyledClose stroke="white" onClick={() => setLogoutModal(false)} />
+            {user?<TYPE.white color={themeColors.text1}>Logout of {user.username}?</TYPE.white>:<TYPE.white color="white">Logout of Bitswap</TYPE.white>}
+            <StyledClose stroke={themeColors.text1} onClick={() => setLogoutModal(false)} />
           </RowBetween>
         </CardSection>
         </div>
+        <div style={{background:themeColors.bg2, width:'100%'}}>
         <CardSection gap="sm">
           <AutoColumn gap="md">
-            <button onClick={()=>handleLogout()} style={{height:50, marginLeft:30, marginRight:30, backgroundColor:'#481c1c', border:'1px solid #db5037', borderRadius:20, fontSize:20, fontWeight:500, color:'#db5037',}}>
+            <button onClick={()=>handleLogout()} style={{height:50, marginLeft:30, marginRight:30, backgroundColor:darkMode?'#481c1c':'#fac3be', border:'1px solid ' + themeColors.red1, borderRadius:20, fontSize:20, fontWeight:500, color:themeColors.red1,}}>
                 Logout
             </button>
             </AutoColumn>
       </CardSection>
+      </div>
       </ModalUpper>
     </ContentWrapper>
       </Modal>
@@ -449,15 +423,15 @@ export default function Header() {
             <img width={'24px'} src={darkMode ? LogoDark : Logo} alt="logo" />
           </UniIcon>
         </Title>
-        {!isLoggedIn?<button onClick={()=>openLoginModal()} style={{paddingLeft:15, paddingRight:15, height:40, background:'#1c2f48', border:'1px solid #213857', borderRadius:12, display:'flex', alignItems:'center'}}>
-          <p style={{ fontSize:16, fontWeight:500, color:'#5787cd', whiteSpace:'nowrap'}}>Login to Bitswap</p>
+        {!isLoggedIn?<button onClick={()=>openLoginModal()} style={{paddingLeft:15, paddingRight:15, height:40, background:themeColors.primary5, border:'1px solid ' + themeColors.primary5, borderRadius:12, display:'flex', alignItems:'center'}}>
+          <p style={{ fontSize:16, fontWeight:500, color:themeColors.primaryText1, whiteSpace:'nowrap'}}>Login to Bitswap</p>
         </button>:
-        <div style={{display:'flex', flexDirection:'row', background:'#212429', borderRadius:12}}>
-        <button onClick={()=>openLogoutModal()} style={{paddingLeft:15, paddingRight:15, height:40, background:'#2c2f36', border:'4px solid #212429', borderRadius:10, display:'flex', alignItems:'center'}}>
-          <p style={{ fontSize:16, fontWeight:500, color:'white', whiteSpace:'nowrap'}}>{user.username.toUpperCase()}</p>
+        <div style={{display:'flex', flexDirection:'row', background:themeColors.bg1, borderRadius:12}}>
+        <button onClick={()=>openLogoutModal()} style={{paddingLeft:15, paddingRight:15, height:40, background:themeColors.bg2, border:'4px solid ' + themeColors.bg1, borderRadius:10, display:'flex', alignItems:'center'}}>
+          <p style={{ fontSize:16, fontWeight:500, color:themeColors.text1, whiteSpace:'nowrap'}}>{user.username.toUpperCase()}</p>
         </button>
         <div style={{height:40, paddingLeft:10, paddingRight:15, borderRadius:10, display:'flex', alignItems:'center'}}>
-          <p style={{ fontSize:16, fontWeight:500, color:'white', whiteSpace:'nowrap'}}>{user.balance.bitclout} BCLT</p>
+          <p style={{ fontSize:16, fontWeight:500, color:themeColors.text1, whiteSpace:'nowrap'}}>{user.balance.bitclout} BCLT</p>
         </div>
         </div>
         
@@ -494,16 +468,6 @@ export default function Header() {
               <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
             )}
           </HideSmall>
-          {availableClaim && !showClaimPopup && (
-            <UNIWrapper onClick={toggleClaimModal}>
-              <UNIAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
-                <TYPE.white padding="0 2px">
-                  {claimTxn && !claimTxn?.receipt ? <Dots>Claiming UNI</Dots> : 'Claim UNI'}
-                </TYPE.white>
-              </UNIAmount>
-              <CardNoise />
-            </UNIWrapper>
-          )}
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>

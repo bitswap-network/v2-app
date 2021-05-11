@@ -57,10 +57,10 @@ export default function Swap({ history }: RouteComponentProps) {
         <Wrapper id="wrap-page">
 
           <AutoColumn gap={'md'}>
-            <div style={{flexDirection:'column', width: '100%', height:90, border:'1px solid #34373d', borderRadius:15,}}>
+            <div style={{flexDirection:'column', width: '100%', height:90, border:'1px solid ' + theme.bg3, borderRadius:15,}}>
               <div style={{flex:0.2, display:'flex', flexDirection:'row',}}>
-                <div style={{flex:0.5, paddingLeft:15, paddingTop:10, textAlign:'left', fontSize:14, color:'#C3C5CB'}}>From</div>
-                <div style={{flex:0.5, paddingRight:15, paddingTop:10, textAlign:'right', fontSize:14, color:'#C3C5CB'}}>Balance: 0.07</div>
+                <div style={{flex:0.5, paddingLeft:15, paddingTop:10, textAlign:'left', fontSize:14, color:theme.text2}}>From</div>
+                <div style={{flex:0.5, paddingRight:15, paddingTop:10, textAlign:'right', fontSize:14, color:theme.text2}}>Balance: 0.07</div>
               </div>
               <div style={{flex:0.8, display:'flex', flexDirection:'row', marginTop:15,}}>
                 <div style={{flex:0.6, display:'flex', marginLeft:15,}}>
@@ -73,7 +73,7 @@ export default function Swap({ history }: RouteComponentProps) {
               />
                 </div>
                 <div style={{flex:0.4, display:'flex', justifyContent:'flex-end', paddingRight:15}}>
-                  <div style={{paddingLeft:15, paddingRight:15, height:37, borderRadius:10, backgroundColor:"#2C2F36", display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center', fontSize:20, fontWeight:500}}>
+                  <div style={{color:theme.text1, paddingLeft:15, paddingRight:15, height:37, borderRadius:10, backgroundColor:theme.bg2, display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center', fontSize:20, fontWeight:500}}>
                     {from == "BCLT"?<img src={require('../../assets/WBCLT-logo.png')} style={{width:30, height:30, borderRadius:100, marginRight:10,}}/>:<img src={require('../../assets/WBCLT-logo.png')} style={{width:30, height:30, borderRadius:100, marginRight:10,}}/>}
                     {from}
                   </div>
@@ -94,10 +94,10 @@ export default function Swap({ history }: RouteComponentProps) {
                 </ArrowWrapper>
               </AutoRow>
             </AutoColumn>
-            <div style={{flexDirection:'column', width: '100%', height:90, border:'1px solid #34373d', borderRadius:15,}}>
+            <div style={{flexDirection:'column', width: '100%', height:90, border:'1px solid ' + theme.bg3, borderRadius:15,}}>
               <div style={{flex:0.2, display:'flex', flexDirection:'row',}}>
-                <div style={{flex:0.5, paddingLeft:15, paddingTop:10, textAlign:'left', fontSize:14, color:'#C3C5CB'}}>To</div>
-                <div style={{flex:0.5, paddingRight:15, paddingTop:10, textAlign:'right', fontSize:14, color:'#C3C5CB'}}>Balance: 0.07</div>
+                <div style={{flex:0.5, paddingLeft:15, paddingTop:10, textAlign:'left', fontSize:14, color:theme.text2}}>To</div>
+                <div style={{flex:0.5, paddingRight:15, paddingTop:10, textAlign:'right', fontSize:14, color:theme.text2}}>Balance: 0.07</div>
               </div>
               <div style={{flex:0.8, display:'flex', flexDirection:'row', marginTop:15,}}>
                 <div style={{flex:0.6, display:'flex', marginLeft:15,}}>
@@ -110,7 +110,7 @@ export default function Swap({ history }: RouteComponentProps) {
               />
                 </div>
                 <div style={{flex:0.4, display:'flex', justifyContent:'flex-end', paddingRight:15}}>
-                  <div style={{paddingLeft:15, paddingRight:15, height:37, borderRadius:10, backgroundColor:"#2C2F36", display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center', fontSize:20, fontWeight:500}}>
+                  <div style={{color:theme.text1, paddingLeft:15, paddingRight:15, height:37, borderRadius:10, backgroundColor:theme.bg2, display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center', fontSize:20, fontWeight:500}}>
                     {to == "BCLT"?<img src={require('../../assets/WBCLT-logo.png')} style={{width:30, height:30, borderRadius:100, marginRight:10,}}/>:<img src={require('../../assets/WBCLT-logo.png')} style={{width:30, height:30, borderRadius:100, marginRight:10,}}/>}
                     {to}
                   </div>
@@ -121,9 +121,9 @@ export default function Swap({ history }: RouteComponentProps) {
           <BottomGrouping>
             {
             inputValue == ""?
-            <button style={{marginTop:15, background:'#40444f', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#6b7184', fontSize:20, fontWeight:500}}>Enter an amount</span></button>:
+            <button style={{marginTop:15, background:theme.bg3, width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:theme.text3, fontSize:20, fontWeight:500}}>Enter an amount</span></button>:
             direction?
-            <button style={{marginTop:15, background:'#2172e5', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Wrap Bitclout</span></button>:<button style={{marginTop:15, background:'#2172e5', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Unwrap Bitclout</span></button>
+            <button style={{marginTop:15, background:theme.primary1, width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Wrap Bitclout</span></button>:<button style={{marginTop:15, background:'#2172e5', width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:'#fff', fontSize:20, fontWeight:500}}>Unwrap Bitclout</span></button>
           }
           </BottomGrouping>
         </Wrapper>
