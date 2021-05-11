@@ -377,12 +377,14 @@ export default function Header() {
         <div style={{background:themeColors.bg2, width:'100%'}}>
         <CardSection gap="sm">
           <AutoColumn gap="md">
-            <input id="username" onChange={() => updateUsername()}  type="text" placeholder="Username" style={{outline: 'none', marginTop:10, height:50, borderRadius:10, border:'1px solid ' + themeColors.bg3, background:'none', color:themeColors.text3, fontWeight:500, fontSize:16, paddingLeft:10, paddingRight:10,}}/>
-            <input id="password" onChange={() => updatePassword()}  type="password" placeholder="Password" style={{outline: 'none', marginTop:10, height:50, borderRadius:10, border:'1px solid ' + themeColors.bg3, background:'none', color:themeColors.text3, fontWeight:500, fontSize:16, paddingLeft:10, paddingRight:10,}}/>
+            <form onSubmit={()=>handleLogin()}>
+            <input id="username" onChange={() => updateUsername()}  type="text" placeholder="Username" style={{width:'100%', outline: 'none', marginTop:10, height:50, borderRadius:10, border:'1px solid ' + themeColors.bg3, background:'none', color:themeColors.text3, fontWeight:500, fontSize:16, paddingLeft:10, paddingRight:10,}}/>
+            <input id="password" onChange={() => updatePassword()}  type="password" placeholder="Password" style={{width:'100%', outline: 'none', marginTop:10, height:50, borderRadius:10, border:'1px solid ' + themeColors.bg3, background:'none', color:themeColors.text3, fontWeight:500, fontSize:16, paddingLeft:10, paddingRight:10,}}/>
             {username == "" || password == ""?
             <button style={{marginTop:15, background:themeColors.bg3, width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:themeColors.text2, fontSize:20, fontWeight:500}}>Login</span></button>:
-            <button onClick={()=>handleLogin()} style={{marginTop:15, background:themeColors.primary1, width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:"#fff", fontSize:20, fontWeight:500}}>Login</span></button>
+            <button type="submit" style={{marginTop:15, background:themeColors.primary1, width:'100%', height:60, borderRadius:15, border:'none'}}><span style={{color:"#fff", fontSize:20, fontWeight:500}}>Login</span></button>
             }
+            </form>
               <span style={{color:'tomato', fontSize:16, fontWeight:400, paddingLeft:15, paddingRight:15, textAlign:'center'}}>{errorText}</span>
               <span style={{color:themeColors.text3, fontSize:16, fontWeight:400, paddingLeft:15, paddingRight:15, textAlign:'center'}}>Don't have a bitswap account?<br/><a href="http://app.bitswap.network/register" style={{color:themeColors.primarytext1}}>Create Account</a></span>
           </AutoColumn>

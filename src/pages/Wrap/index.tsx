@@ -57,13 +57,13 @@ export default function Swap({ history }: RouteComponentProps) {
         <Wrapper id="wrap-page">
 
           <AutoColumn gap={'md'}>
-            <div style={{flexDirection:'column', width: '100%', height:90, border:'1px solid ' + theme.bg3, borderRadius:15,}}>
+            <div style={{marginTop:3, flexDirection:'column', width: '100%', height:90, border:'1px solid ' + theme.bg2, borderRadius:20,}}>
               <div style={{flex:0.2, display:'flex', flexDirection:'row',}}>
-                <div style={{flex:0.5, paddingLeft:15, paddingTop:10, textAlign:'left', fontSize:14, color:theme.text2}}>From</div>
-                <div style={{flex:0.5, paddingRight:15, paddingTop:10, textAlign:'right', fontSize:14, color:theme.text2}}>Balance: 0.07</div>
+                <div style={{flex:0.5, paddingLeft:16, paddingTop:11, textAlign:'left', fontSize:14, color:theme.text2, fontWeight:500}}>From</div>
+                <div style={{flex:0.5, paddingRight:16, paddingTop:11, textAlign:'right', fontSize:14, color:theme.text2, fontWeight:500}}>Balance: 0.07</div>
               </div>
-              <div style={{flex:0.8, display:'flex', flexDirection:'row', marginTop:15,}}>
-                <div style={{flex:0.6, display:'flex', marginLeft:15,}}>
+              <div style={{flex:0.8, display:'flex', flexDirection:'row', marginTop:12,}}>
+                <div style={{flex:0.6, display:'flex', marginLeft:16,}}>
                 <NumericalInput
                 className="token-amount-input"
                 value={inputValue}
@@ -94,13 +94,13 @@ export default function Swap({ history }: RouteComponentProps) {
                 </ArrowWrapper>
               </AutoRow>
             </AutoColumn>
-            <div style={{flexDirection:'column', width: '100%', height:90, border:'1px solid ' + theme.bg3, borderRadius:15,}}>
+            <div style={{flexDirection:'column', width: '100%', height:90, border:'1px solid ' + theme.bg2, borderRadius:20,}}>
               <div style={{flex:0.2, display:'flex', flexDirection:'row',}}>
-                <div style={{flex:0.5, paddingLeft:15, paddingTop:10, textAlign:'left', fontSize:14, color:theme.text2}}>To</div>
-                <div style={{flex:0.5, paddingRight:15, paddingTop:10, textAlign:'right', fontSize:14, color:theme.text2}}>Balance: 0.07</div>
+                <div style={{flex:0.5, paddingLeft:16, paddingTop:11, textAlign:'left', fontSize:14, color:theme.text2, fontWeight:500}}>To</div>
+                <div style={{flex:0.5, paddingRight:16, paddingTop:11, textAlign:'right', fontSize:14, color:theme.text2, fontWeight:500}}>Balance: 0.07</div>
               </div>
-              <div style={{flex:0.8, display:'flex', flexDirection:'row', marginTop:15,}}>
-                <div style={{flex:0.6, display:'flex', marginLeft:15,}}>
+              <div style={{flex:0.8, display:'flex', flexDirection:'row', marginTop:12,}}>
+                <div style={{flex:0.6, display:'flex', marginLeft:16,}}>
                 <NumericalInput
                 className="token-amount-input"
                 value={inputValue}
