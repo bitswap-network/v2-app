@@ -16,7 +16,7 @@ import { useActiveWeb3React } from '../../hooks'
 import { useCurrencyBalance } from '../../state/wallet/hooks'
 import { useAllTokens } from '../../hooks/Tokens'
 import {useRecoilValue} from 'recoil';
-import {userState} from "../../state/user";
+import {loggedInState, userState} from "../../state/user";
 
 export default function Swap({ history }: RouteComponentProps) {
   const theme = useContext(ThemeContext)
@@ -29,12 +29,13 @@ export default function Swap({ history }: RouteComponentProps) {
   const toggleWalletModal = useWalletModalToggle()
   const { account } = useActiveWeb3React()
   const user = useRecoilValue(userState);
+  const isLoggedIn = useRecoilValue(loggedInState);
   const allTokens = useAllTokens()
-  
+
   var WBCLTToken = allTokens["0xE41d2489571d322189246DaFA5ebDe1F4699F498"]
   let WBCLTBalance = useCurrencyBalance(account ?? undefined, WBCLTToken ?? undefined)
   let BCLTBalance = 0
-  if (user) {
+  if (isLoggedIn) {
     BCLTBalance = user.balance.bitclout
   }
 
@@ -78,7 +79,7 @@ export default function Swap({ history }: RouteComponentProps) {
             <div style={{marginTop:3, flexDirection:'column', width: '100%', height:90, border:'1px solid ' + theme.bg2, borderRadius:20,}}>
               <div style={{flex:0.2, display:'flex', flexDirection:'row',}}>
                 <div style={{flex:0.5, paddingLeft:16, paddingTop:11, textAlign:'left', fontSize:14, color:theme.text2, fontWeight:500}}>From</div>
-                <div style={{flex:0.5, paddingRight:16, paddingTop:11, textAlign:'right', fontSize:14, color:theme.text2, fontWeight:500}}>Balance: {!account?"0.0":(from == "WBCLT"?WBCLTBalance?.toSignificant(6):parseFloat(BCLTBalance.toPrecision(6)))}</div>
+                <div style={{flex:0.5, paddingRight:16, paddingTop:11, textAlign:'right', fontSize:14, color:theme.text2, fontWeight:500}}>Balance: {(from == "WBCLT"?(account?WBCLTBalance?.toSignificant(6):'0'):parseFloat(BCLTBalance.toPrecision(6)))}</div>
               </div>
               <div style={{flex:0.8, display:'flex', flexDirection:'row', marginTop:12,}}>
                 <div style={{flex:0.6, display:'flex', marginLeft:16,}}>
@@ -115,7 +116,7 @@ export default function Swap({ history }: RouteComponentProps) {
             <div style={{flexDirection:'column', width: '100%', height:90, border:'1px solid ' + theme.bg2, borderRadius:20,}}>
               <div style={{flex:0.2, display:'flex', flexDirection:'row',}}>
                 <div style={{flex:0.5, paddingLeft:16, paddingTop:11, textAlign:'left', fontSize:14, color:theme.text2, fontWeight:500}}>To</div>
-                <div style={{flex:0.5, paddingRight:16, paddingTop:11, textAlign:'right', fontSize:14, color:theme.text2, fontWeight:500}}>Balance: {!account?"0.0":(to == "WBCLT"?WBCLTBalance?.toSignificant(6):parseFloat(BCLTBalance.toPrecision(6)))}</div>
+                <div style={{flex:0.5, paddingRight:16, paddingTop:11, textAlign:'right', fontSize:14, color:theme.text2, fontWeight:500}}>Balance: {(to == "WBCLT"?(account?WBCLTBalance?.toSignificant(6):'0'):parseFloat(BCLTBalance.toPrecision(6)))}</div>
               </div>
               <div style={{flex:0.8, display:'flex', flexDirection:'row', marginTop:12,}}>
                 <div style={{flex:0.6, display:'flex', marginLeft:16,}}>
