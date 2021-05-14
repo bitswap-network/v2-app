@@ -298,6 +298,7 @@ export default function Header() {
   const isLoggedIn = useRecoilValue(loggedInState);
   const setUser = useSetRecoilState(userState);
   const user = useRecoilValue(userState);
+  console.log(user)
 
   const [loginModal, setLoginModal] = useState(false)
   const [logoutModal, setLogoutModal] = useState(false)
@@ -408,6 +409,18 @@ export default function Header() {
         <div style={{background:themeColors.bg2, width:'100%'}}>
         <CardSection gap="sm">
           <AutoColumn gap="md">
+            <div style={{width:'100%'}}>
+              <div style={{display:'flex', flexDirection:'row', margin:15}}>
+                  <div style={{display:'flex', flex:0.2}}>
+                    <img src={user.bitclout.profilePicture} style={{width:80, height:80, borderRadius:80}}/>
+                  </div>
+                  <div style={{display:'flex', flex:0.8, flexDirection:'column', marginLeft:22, marginTop:2}}>
+                      <span style={{fontSize:20, fontWeight:600, }}>{user.username}</span>
+                      <span style={{fontSize:14, fontWeight:300, marginTop:5}}>{user.email}</span>
+                      <span style={{fontSize:16, fontWeight:400, marginTop:10}}>{user.bitclout.bio}</span>
+                  </div>
+              </div>
+              </div>
             <button onClick={()=>handleLogout()} style={{height:50, marginLeft:30, marginRight:30, backgroundColor:darkMode?'#481c1c':'#fac3be', border:'1px solid ' + themeColors.red1, borderRadius:20, fontSize:20, fontWeight:500, color:themeColors.red1,}}>
                 Logout
             </button>
