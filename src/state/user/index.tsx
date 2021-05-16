@@ -1,6 +1,8 @@
 import { atom, selector } from "recoil";
 import { validateToken } from "./services";
 
+export const BASE_URL = "http://localhost:5000"
+
 export const userState = atom({
   key: "userState",
   default: JSON.parse(localStorage.getItem("user") as string),

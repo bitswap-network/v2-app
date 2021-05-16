@@ -1,7 +1,8 @@
 import axios from "axios";
+import {BASE_URL} from "./index"
 
 export const loginUser = async (username: string, password: string) => {
-    return await axios.post(`http://localhost:5000/auth/login`, {
+    return await axios.post(`${BASE_URL}/auth/login`, {
       username: username,
       password: password,
     });
@@ -13,7 +14,7 @@ export const logoutUser = () => {
 
 export const validateToken = async (token: string) => {
   return await axios
-    .get(`http://localhost:5000/auth/verifytoken`, {
+    .get(`${BASE_URL}/auth/verifytoken`, {
       headers: { authorization: `Bearer ${token}` },
     })
     .then((response) => {

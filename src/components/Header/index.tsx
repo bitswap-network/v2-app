@@ -299,7 +299,6 @@ export default function Header() {
   const setUser = useSetRecoilState(userState);
   const user = useRecoilValue(userState);
   console.log(user)
-
   const [loginModal, setLoginModal] = useState(false)
   const [logoutModal, setLogoutModal] = useState(false)
   const [username, setUsername] = useState("")
@@ -326,10 +325,10 @@ export default function Header() {
 
   const handleLogin = () => {
     loginUser(username.trim(), password.trim())
-      .then((response:any) => {
+      .then(async (response:any) => {
         if (response.status === 200) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-          setUser(response.data);
+          await localStorage.setItem("user", JSON.stringify(response.data));
+          await setUser(response.data);
           setLoginModal(false)
           window.location.assign("/");
         } else {
@@ -409,16 +408,27 @@ export default function Header() {
         <div style={{background:themeColors.bg2, width:'100%'}}>
         <CardSection gap="sm">
           <AutoColumn gap="md">
-            <div style={{width:'100%'}}>
+            <div style={{width:'100%', display:'flex', flexDirection:'column'}}>
               <div style={{display:'flex', flexDirection:'row', margin:15}}>
                   <div style={{display:'flex', flex:0.2}}>
-                    <img src={user.bitclout.profilePicture} style={{width:80, height:80, borderRadius:80}}/>
+                    {isLoggedIn?<img src={user.bitclout.profilePicture} style={{width:80, height:80, borderRadius:80}}/>:null}
                   </div>
-                  <div style={{display:'flex', flex:0.8, flexDirection:'column', marginLeft:22, marginTop:2}}>
-                      <span style={{fontSize:20, fontWeight:600, }}>{user.username}</span>
-                      <span style={{fontSize:14, fontWeight:300, marginTop:5}}>{user.email}</span>
-                      <span style={{fontSize:16, fontWeight:400, marginTop:10}}>{user.bitclout.bio}</span>
+                  {isLoggedIn?
+                  <div>
+                    <div style={{display:'flex', flex:0.8, flexDirection:'column', marginLeft:22, marginTop:2}}>    
+                        <span style={{fontSize:20, fontWeight:600, color:themeColors.text1}}>{user.username}</span>
+                        <span style={{fontSize:14, fontWeight:300, marginTop:5, color:themeColors.text1}}>{user.email}</span>
+                        <span style={{fontSize:16, fontWeight:400, marginTop:10, color:themeColors.text1}}>{user.bitclout.bio}</span>
+                    </div>
+                    <div style={{display:'flex', flexDirection:'row', background:themeColors.bg1, borderRadius:12, marginLeft:22, alignSelf:'flex-start'}}>
+                    <a href="https://app.bitswap.network/" style={{paddingLeft:15, paddingRight:15, height:40, background:themeColors.bg2, border:'4px solid ' + themeColors.bg1, borderRadius:10, display:'flex', textDecoration:'none', alignItems:'center'}}>
+                      <p style={{ fontSize:16, fontWeight:500, color:themeColors.text1, whiteSpace:'nowrap'}}>Manage BCLT Balance</p>
+                    </a>
+                    <div style={{height:40, paddingLeft:10, paddingRight:15, borderRadius:10, display:'flex', alignItems:'center'}}>
+                      <p style={{ fontSize:16, fontWeight:500, color:themeColors.text1, whiteSpace:'nowrap'}}>{user.balance.bitclout} BCLT</p>
+                    </div>
                   </div>
+                </div>:null}
               </div>
               </div>
             <button onClick={()=>handleLogout()} style={{height:50, marginLeft:30, marginRight:30, backgroundColor:darkMode?'#481c1c':'#fac3be', border:'1px solid ' + themeColors.red1, borderRadius:20, fontSize:20, fontWeight:500, color:themeColors.red1,}}>
