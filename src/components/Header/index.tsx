@@ -506,7 +506,7 @@ export default function Header() {
           <StyledMenuButton onClick={() => toggleDarkMode()}>
             {darkMode ? <Moon size={20} /> : <Sun size={20} />}
           </StyledMenuButton>
-          <Menu />
+          <Menu account={account}/>
         </HeaderElementWrap>
       </HeaderControls>
     </HeaderFrame>

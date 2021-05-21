@@ -5,6 +5,7 @@ import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleModal } from '../../state/application/hooks'
+import { ButtonPrimary } from '../Button'
 
 import { ExternalLink } from '../../theme'
 
@@ -83,12 +84,24 @@ const MenuItem = styled(ExternalLink)`
   }
 `
 
-export default function Menu() {
+const UNIbutton = styled(ButtonPrimary)`
+  background-color: ${({ theme }) => theme.bg3};
+  background: radial-gradient(174.47% 188.91% at 1.84% 0%, #ff007a 0%, #2172e5 100%), #edeef2;
+  border: none;
+`
+
+
+interface MenuProps {
+  account:any
+}
+
+export default function Menu({account}:MenuProps) {
 
   const node = useRef<HTMLDivElement>()
   const open = useModalOpen(ApplicationModal.MENU)
   const toggle = useToggleModal(ApplicationModal.MENU)
   useOnClickOutside(node, open ? toggle : undefined)
+  const openClaimModal = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
 
   return (
     <StyledMenu ref={node as any}>
@@ -114,6 +127,11 @@ export default function Menu() {
             <MessageCircle size={14} />
             Discord
           </MenuItem>
+          {account && (
+            <UNIbutton onClick={openClaimModal} padding="8px 16px" width="100%" borderRadius="12px" mt="0.5rem">
+              Claim UNI
+            </UNIbutton>
+          )}
         </MenuFlyout>
       )}
     </StyledMenu>
