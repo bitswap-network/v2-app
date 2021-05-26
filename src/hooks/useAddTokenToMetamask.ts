@@ -12,6 +12,8 @@ export default function useAddTokenToMetamask(
   const token: Token | undefined = wrappedCurrency(currencyToAdd, chainId)
 
   const [success, setSuccess] = useState<boolean | undefined>()
+  
+  console.log(currencyToAdd)
 
   const addToken = useCallback(() => {
     if (library && library.provider.isMetaMask && library.provider.request && token) {

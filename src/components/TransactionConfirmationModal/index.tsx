@@ -83,7 +83,7 @@ function TransactionSubmittedContent({
   const { library } = useActiveWeb3React()
 
   const { addToken, success } = useAddTokenToMetamask(currencyToAdd)
-
+//console.log(currencyToAdd)
   return (
     <Wrapper>
       <Section>
@@ -129,6 +129,8 @@ function TransactionSubmittedContent({
     </Wrapper>
   )
 }
+
+
 
 export function ConfirmationModalContent({
   title,

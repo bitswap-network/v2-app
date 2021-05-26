@@ -23,7 +23,7 @@
       },
       {
         "chainId": 42,
-        "address": "0x74d8b875fb498d7c16ba964ea0ec65c9c8b35712",
+        "address": "0x74d8b875Fb498D7C16Ba964EA0ec65c9c8b35712",
         "name": "Wrapped Bitclout",
         "symbol": "WBCLT",
         "decimals": 18,

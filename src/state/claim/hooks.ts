@@ -77,7 +77,7 @@ export function useUserUnclaimedAmount(account: string | null | undefined): Toke
   const { chainId } = useActiveWeb3React()
   const userClaimData = useUserClaimData(account)
   const canClaim = useUserHasAvailableClaim(account)
-
+// need to change this
   const uni = chainId ? UNI[chainId] : undefined
   if (!uni) return undefined
   if (!canClaim || !userClaimData) {
@@ -110,7 +110,7 @@ export function useClaimCallback(
         .claim(...args, { value: null, gasLimit: calculateGasMargin(estimatedGasLimit) })
         .then((response: TransactionResponse) => {
           addTransaction(response, {
-            summary: `Claimed ${unClaimedAmount?.toSignificant(4)} UNI`,
+            summary: `Claimed ${unClaimedAmount?.toSignificant(4)} BITS`,
             claim: { recipient: account }
           })
           return response.hash
