@@ -298,7 +298,6 @@ export default function Header() {
   const isLoggedIn = useRecoilValue(loggedInState);
   const setUser = useSetRecoilState(userState);
   const user = useRecoilValue(userState);
-  console.log(user)
   const [loginModal, setLoginModal] = useState(false)
   const [logoutModal, setLogoutModal] = useState(false)
   const [username, setUsername] = useState("")

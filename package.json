@@ -123,6 +123,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@uniswap/default-token-list": "^2.0.0",
+    "ethereum-address": "^0.0.4",
     "recoil": "^0.2.0",
     "surge": "^0.23.0"
   }
